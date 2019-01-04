@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
-$fule_rate = 0.14 + 0.135;
+$fule = 0.165;
+$dep = 0.135;
+$fule_rate = $fule + $dep;
 
 if ($_POST['distance']!=NULL)
 {
@@ -35,6 +37,10 @@ else
     $etc = 10;
 }
 
+if ($num_person <= $num_car)
+{
+    $num_car = $num_person - 1;
+}
 ?>
 
 <html lang="ko">
@@ -104,7 +110,7 @@ else
                 <label>기타:</label>
             </div>
             <div class="col-sm-3"> 
-                <input type="number" id="etc" name="etc" min="0" max="100" value="<?php echo $etc?>">
+                <input type="number" id="etc" name="etc" min="0" max="1000" value="<?php echo $etc?>">
             </div>
         </div>
         <br><br>
@@ -127,19 +133,19 @@ $_driver_get = ($_total - $_etc - $_per_person*$num_car) / $num_car;
 if ($_POST['distance']!=NULL)
 {
     printf('<div class="alert alert-success">');
-    printf('    <strong>기름값: </strong> $%d', $_fule);
+    printf('    <strong>차량 운행비(기름:%.2f, 감가삼각:%.3f, $/km): </strong> $%d', $fule, $dep, $_fule);
     printf('</div>');
     
     printf('<div class="alert alert-success">');
-    printf('    <strong>총: </strong> $%d', $_total);
+    printf('    <strong>총액(차량운행비+기타): </strong> $%d', $_total);
     printf('</div>');
 
-    printf('<div class="alert alert-success">');
+    printf('<div class="alert alert-info">');
     printf('    <strong>개인 동출비(운전자 제외): </strong> $%d', $_per_person);
     printf('</div>');
 
-    printf('<div class="alert alert-success">');
-    printf('    <strong>운전자(받음): </strong> $%d', $_driver_get);
+    printf('<div class="alert alert-danger">');
+    printf('    <strong>차량 당 운전자가 받는 금액: </strong> $%d', $_driver_get);
     printf('</div>');
 }
 ?>
