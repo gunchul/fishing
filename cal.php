@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 $fule = 0.165;
-$dep = 0.135;
+$dep = 0.2;
 $fule_rate = $fule + $dep;
 
 if ($_POST['distance']!=NULL)
